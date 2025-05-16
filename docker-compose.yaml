@@ -1,0 +1,53 @@
+services:
+  nginx:
+    image : nginx
+    container_name : nginx
+    ports :
+      - 1244:80
+    volumes : 
+      - ./public:/var/www/public
+      - ./docker/nginx:/etc/nginx/conf.d
+      - ./resources:/var/www/resources
+    networks :
+      - network44
+    depends_on :
+      - mysql
+      - php
+  php:
+    build : ./docker/php
+    container_name : php
+    volumes :
+      - ./public:/var/www/public
+      - ./:/var/www
+    networks : 
+      - network44
+    depends_on :
+      - mysql
+  phpmyadmin :
+    image : phpmyadmin
+    container_name : phpmyadmin
+    ports :
+      - 1744:80
+    environment :
+      - PMA_HOST=mysql
+    networks :
+      - network44
+    depends_on :
+      - mysql
+  mysql :
+    image : mysql
+    container_name : mysql
+    volumes : 
+      - ./docker/mysql:/var/lib/mysql
+    environment :
+      - MYSQL_ROOT_PASSWORD=root
+    networks :
+      - network44 
+
+networks :
+  network44:
+    name : network44
+
+
+
+    

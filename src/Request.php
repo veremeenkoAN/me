@@ -2,24 +2,29 @@
 
 namespace App;
 
-class Request
+readonly class Request
 {
-    private string $uri;
-    private string $method;
-    private array $queryParams;
-    private array $bodyParams;
-
-    public function __construct()
+    public function __construct(
+        private string $uri,
+        private string $method,
+        private array  $queryParams,
+        private array  $bodyParams,
+    )
     {
-        $this->uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->queryParams = $_GET;
-        if (empty($_POST)) {
-            $this->bodyParams = json_decode(file_get_contents('php://input'),1) ?? [];
-        }
-        else {
-            $this->bodyParams = $_POST;
-        }
+    }
+
+    /**
+     * TODO Ошибка эта не ловится нигде. Может ты так и хотел
+     * @throws \JsonException
+     */
+    public static function fromGlobals(): self
+    {
+        return new self(
+            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),
+            $_SERVER['REQUEST_METHOD'],
+            $_GET,
+            $_POST ?: (json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR) ?? [])
+        );
     }
 
     public function getUri(): string
@@ -32,6 +37,7 @@ class Request
         return $this->method;
     }
 
+    //TODO несколько проблем: если ключа нет — будет Undefined array key + возможный TypeError, если тип данных не string
     public function get(string $key): string
     {
         return $this->queryParams[$key];

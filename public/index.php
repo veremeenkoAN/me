@@ -134,7 +134,8 @@ $container->set(\App\Controllers\HomeController::class, fn($c) => new HomeContro
 
 
 $app = new App(new Router($container,new OwnRender,new Logger));
-$response = $app->handle();
+$request = Request::fromGlobals();
+$response = $app->handle($request);
 $response->send();
 
 

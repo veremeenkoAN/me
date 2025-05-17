@@ -12,9 +12,9 @@ class App
         private Router $router
     ){}
 
-    public function handle(): AbstractHttpResponse
+    public function handle(Request $request): AbstractHttpResponse
     {
-        return $this->router->dispatch(new Request());
+        return $this->router->dispatch($request);
     }
 
 }

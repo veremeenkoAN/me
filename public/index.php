@@ -65,6 +65,9 @@ Router::add(['POST','/country/save',[\App\Controllers\CountryController::class,'
 Router::add(['POST','/city/save',[\App\Controllers\CityController::class,'save']]);
 Router::add(['POST','/user/save',[\App\Controllers\UserController::class,'save']]);
 
+// TODO Просил тебя не делать DI-контейнер.. Вышло у тебя лишь бы что
+// TODO Пример, у тебя DI простаивает - лишние инстансы OwnRender будут при конкретных запросах. Добавится в нем зависимость - много где придет менять
+// TODO Но смысл и принцип работы ты его понял. Раз уж таким путем пошел - тогда уже в отдельный файл запихни, чтобы в тестах мог другие зависимости прокинуть в контейнер
 
 $container->set(\App\Controllers\CityController::class, fn($c) => new CityController(
     $c->get(\App\Services\CityService::class),new CountryService($c->get(\App\Repositories\MySqlCountryRepository::class),new DTOCountryMapper()),new CityViewBuilder,new OwnRender(),new Validator())

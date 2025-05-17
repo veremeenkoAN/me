@@ -16,6 +16,7 @@ class CityController
 {
     public function __construct(
         private readonly CityService $cityService,
+        //TODO Ничего страшного конечно. Но просто указываю пример, что инстанс будет делаться, а используется в редких методах
         private readonly CountryService $countryService,
         private readonly CityViewBuilder $builder,
         private readonly ViewRenderInterface $view,

@@ -37,7 +37,7 @@ readonly class Request
         return $this->method;
     }
 
-    //TODO несколько проблем: если ключа нет — будет Undefined array key + возможный TypeError, если тип данных не string
+    //TODO несколько проблем: если ключа нет — будет Undefined array key + возможный TypeError, если тип данных не string. Нейминг тоже не очень
     public function get(string $key): string
     {
         return $this->queryParams[$key];

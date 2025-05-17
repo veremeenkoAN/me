@@ -82,7 +82,7 @@ $container->set(\App\Database::class, fn($c) => new Database(
     $c->get(\App\DatabaseConfig::class)
 ));
 
-$container->set(\App\DatabaseConfig::class, fn($c) => new DatabaseConfig()
+$container->set(\App\DatabaseConfig::class, fn($c) => DatabaseConfig::fromLocalMySQL()
 );
 
 //---------------------------------------------------
@@ -103,7 +103,7 @@ $container->set(\App\Database::class, fn($c) => new Database(
     $c->get(\App\DatabaseConfig::class)
 ));
 
-$container->set(\App\DatabaseConfig::class, fn($c) => new DatabaseConfig()
+$container->set(\App\DatabaseConfig::class, fn($c) => DatabaseConfig::fromLocalMySQL()
 );
 
 //-------------------------------------------------------------------------
@@ -124,7 +124,7 @@ $container->set(\App\Database::class, fn($c) => new Database(
     $c->get(\App\DatabaseConfig::class)
 ));
 
-$container->set(\App\DatabaseConfig::class, fn($c) => new DatabaseConfig()
+$container->set(\App\DatabaseConfig::class, fn($c) => DatabaseConfig::fromLocalMySQL()
 );
 
 

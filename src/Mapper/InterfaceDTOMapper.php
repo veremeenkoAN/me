@@ -2,9 +2,10 @@
 
 namespace App\Mapper;
 
+//TODO Конвенция либо в конце суффикс Interface, либо не использовать
 interface InterfaceDTOMapper
 {
 
-    public function ToDTO(array $models): array;
+    public function toDTO(array $models): array;
 
 }

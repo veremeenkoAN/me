@@ -5,14 +5,14 @@ namespace App;
 
 use App\DIContainer\DIContainer;
 use App\Render\ViewRenderInterface;
-use App\Response\AbstractHttpResponse;
-use App\Response\AbstractResponse;
+use App\Response\HttpResponseInterface;
 use App\Response\HtmlResponse;
 
 class Router
 {
     private static array $routers;
 
+    //TODO Ну раз уж, ты решил контейнер сюда кидать, почему не через него получаешь другие зависимости?
     public function __construct(
         private DIContainer         $container,
         private ViewRenderInterface $view,
@@ -26,7 +26,7 @@ class Router
 
     }
 
-    public function dispatch(Request $request): AbstractHttpResponse
+    public function dispatch(Request $request): HttpResponseInterface
     {
         try {
             $controller = self::$routers[$request->getMethod()][$request->getUri()];

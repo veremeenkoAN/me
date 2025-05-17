@@ -1,21 +1,24 @@
 <?php
 
 namespace App\Services;
+use App\DTO\City\CityDTO;
+use App\DTO\City\CitySaveDTO;
 use App\DTO\City\CityUpdateDTO;
 use App\Mapper\DTOCityMapper;
 use App\Repositories\CityRepository;
 use App\Repositories\CountryRepository;
 
-class CityService
+readonly class CityService
 {
 
     public function __construct(
-        private readonly CityRepository $cityRepository,
-        private readonly DTOCityMapper $mapper,
-        private readonly CountryRepository $countryRepository ,
+        private CityRepository $cityRepository,
+        private DTOCityMapper $mapper,
+        private CountryRepository $countryRepository ,
     )
     {}
 
+    /** @return CityDTO[] */
     public function getAll(): array
     {
         $allCities = $this->cityRepository->getAll();
@@ -54,9 +57,9 @@ class CityService
         $this->cityRepository->update($dto->id,$dto->city,$dto->country_id);
     }
 
-    public function save(string $city,int $id)
+    public function save(CitySaveDTO $citySaveDto)
     {
-        $this->cityRepository->save($city,$id);
+        $this->cityRepository->save($citySaveDto->name, $citySaveDto->id);
     }
 
 

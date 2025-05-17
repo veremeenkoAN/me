@@ -7,7 +7,8 @@ use App\DTO\City\CityDTO;
 class DTOCityMapper implements InterfaceDTOMapper
 {
 
-    public function ToDTO(array $models): array
+    /** @return CityDTO[] */
+    public function toDTO(array $models): array
     {
         $result = [];
         foreach ($models as $modelCity) {

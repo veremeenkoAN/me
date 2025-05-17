@@ -8,7 +8,7 @@ use App\DTO\User\UserEditDTO;
 class DTOUserMapper implements InterfaceDTOMapper
 {
 
-    public function ToDTO(array $models): array
+    public function toDTO(array $models): array
     {
         $result = [];
         foreach ($models as $modelUser) {

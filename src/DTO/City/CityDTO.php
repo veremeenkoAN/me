@@ -2,12 +2,12 @@
 
 namespace App\DTO\City;
 
-class CityDTO
+readonly class CityDTO
 {
     public function __construct(
-        public readonly int $id,
-        public readonly string $city,
-        public readonly string $country,
+        public int $id,
+        public string $city,
+        public string $country,
     ){}
 
 }

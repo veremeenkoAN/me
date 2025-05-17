@@ -12,6 +12,7 @@
         }
     ],
     "require": {
+        "php": "^8.3",
         "symfony/var-dumper": "^7.2",
         "ext-pdo": "*",
         "vlucas/valitron": "^1.4"

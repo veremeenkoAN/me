@@ -3,7 +3,7 @@
 namespace App;
 
 use App\DIContainer\DIContainer;
-use App\Response\AbstractHttpResponse;
+use App\Response\HttpResponseInterface;
 
 class App
 {
@@ -12,9 +12,9 @@ class App
         private Router $router
     ){}
 
-    public function handle(): AbstractHttpResponse
+    public function handle(Request $request): HttpResponseInterface
     {
-        return $this->router->dispatch(new Request());
+        return $this->router->dispatch($request);
     }
 
 }

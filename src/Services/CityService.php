@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\DTO\City\CitySaveDTO;
 use App\DTO\City\CityUpdateDTO;
 use App\Mapper\DTOCityMapper;
 use App\Repositories\CityRepository;
@@ -54,9 +55,9 @@ class CityService
         $this->cityRepository->update($dto->id,$dto->city,$dto->country_id);
     }
 
-    public function save(string $city,int $id)
+    public function save(CitySaveDTO $citySaveDto)
     {
-        $this->cityRepository->save($city,$id);
+        $this->cityRepository->save($citySaveDto->name, $citySaveDto->id);
     }
 
 

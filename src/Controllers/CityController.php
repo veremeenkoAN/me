@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controllers;
+use App\DTO\City\CitySaveDTO;
 use App\DTO\City\CityUpdateDTO;
+use App\Exception\ValidationException;
 use App\Render\ViewRenderInterface;
 use App\Request;
 use App\Response\HtmlResponse;
@@ -71,11 +73,14 @@ class CityController
 
     public function save(Request $request): HtmlResponse
     {
-        $this->validator->set($request->getBodyParams());
-        if (!$this->validator->required(['city','chose-country_id'])) {
-            throw new \Exception('Incorrect field');
+        try {
+            $citySaveDtoFromUser = CitySaveDTO::fromRequestAfterValidation($request);
+        } catch (ValidationException $exception) {
+            throw $exception; //TODO Я бы советовал тут ловить и выводить пользовательскую ошибку не дефолтным образом
         }
-        $this->cityService->save($request->post('city'),$request->post('chose-country_id'));
+
+        $this->cityService->save($citySaveDtoFromUser);
+
         return new HtmlResponse('',303,['Location' => '/city']);
     }
 }

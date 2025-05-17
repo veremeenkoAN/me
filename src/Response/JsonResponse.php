@@ -2,19 +2,20 @@
 
 namespace App\Response;
 
-class JsonResponse extends AbstractHttpResponse
+readonly class JsonResponse implements HttpResponseInterface
 {
-    public function __construct(array $content,int $code, array $headers)
-    {
-        $this->headers = $headers;
-        $this->code = $code;
-        $this->content = $content;
-    }
+    public function __construct(
+        private array $content,
+        private int $code = 200,
+        private array $additionHeaders = []
+    )
+    {}
 
     public function send(): void
     {
         http_response_code($this->code);
-        foreach ($this->headers as $key => $value){
+        header("Content-Type:application/json");
+        foreach ($this->additionHeaders as $key => $value){
             header("$key:$value");
         }
         echo json_encode($this->content);

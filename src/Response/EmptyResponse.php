@@ -2,13 +2,13 @@
 
 namespace App\Response;
 
-class EmptyResponse extends AbstractHttpResponse
+readonly class EmptyResponse implements HttpResponseInterface
 {
-    public function __construct(int $code, array $headers)
-    {
-        $this->headers = $headers;
-        $this->code = $code;
-    }
+    public function __construct(
+        private int $code = 200,
+        private array $headers = []
+    )
+    {}
 
     public function send(): void
     {

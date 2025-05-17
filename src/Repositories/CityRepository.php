@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 interface CityRepository
 {
+    /** @return string[] */
     public function getAll(): array;
     public function getById(int $id): array;
     public function sort(string $field,string $order): array;

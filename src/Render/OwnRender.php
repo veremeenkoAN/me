@@ -8,33 +8,23 @@ class OwnRender implements ViewRenderInterface
 
     public function render(string $path, array $data,string $layout): string
     {
-        try{
-            $layoutPath = __DIR__ . "/../../view/layout/{$layout}.php";
-            $innerPath = __DIR__ . "/../../view/{$path}.php";
-            if (!empty($path)) {
-                ob_start();
-                require $innerPath;
-                $this->innerHtml = ob_get_clean();
-            }
+        $layoutPath = __DIR__ . "/../../view/layout/{$layout}.php";
+        $innerPath = __DIR__ . "/../../view/{$path}.php";
+        if (!empty($path)) {
             ob_start();
-            require $layoutPath;
-            return ob_get_clean();
+            require $innerPath;
+            $this->innerHtml = ob_get_clean();
         }
-        catch (\Exception $e) {
-
-        }
+        ob_start();
+        require $layoutPath;
+        return ob_get_clean();
     }
 
     public function renderComponent(string $path, array $data) : string
     {
-        try{
-            $innerPath = __DIR__ . "/../../view/components/{$path}.php";
-            ob_start();
-            require $innerPath;
-            return ob_get_clean();
-        }
-        catch (\Exception $e) {
-
-        }
+        $innerPath = __DIR__ . "/../../view/components/{$path}.php";
+        ob_start();
+        require $innerPath;
+        return ob_get_clean();
     }
 }

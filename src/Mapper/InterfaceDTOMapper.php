@@ -5,6 +5,6 @@ namespace App\Mapper;
 interface InterfaceDTOMapper
 {
 
-    public function ToDTO(array $models): array;
+    public function toDTO(array $models): array;
 
 }
